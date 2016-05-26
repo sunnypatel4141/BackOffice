@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="21Labels" language="groovy" columnCount="3" pageWidth="595" pageHeight="842" columnWidth="185" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="132595bb-0a3e-4b95-a740-565fd3cf98d5">
+	<property name="ireport.zoom" value="3.7974983358324153"/>
+	<property name="ireport.x" value="39"/>
+	<property name="ireport.y" value="134"/>
+	<queryString>
+		<![CDATA[select * from searchproducts where prid in (select prid from printqueue);]]>
+	</queryString>
+	<field name="prid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="barcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="price" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="113" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="68" width="52" height="37" uuid="9da831bb-e016-43fd-8c2e-4ed2f6c26293"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prid}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="64" y="68" width="118" height="37" uuid="c651a7dc-d69c-4c38-b13d-0dd107f2d2d0"/>
+				<textElement textAlignment="Right">
+					<font size="24" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="7" width="170" height="40" uuid="0c67b624-72eb-49a7-b6a4-59dfae97f517"/>
+				<textElement verticalAlignment="Top">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement mode="Opaque" x="12" y="47" width="168" height="21" uuid="2196f230-a3c6-44ce-bfd5-c255088c79e3"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="true" checksumRequired="true">
+					<jr:codeExpression><![CDATA[$F{barcode}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>

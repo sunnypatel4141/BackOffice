@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Payout_Totals" language="groovy" pageWidth="206" pageHeight="96" columnWidth="206" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ce67ee96-92c9-477d-8ce3-1c17986c19f1">
+	<property name="ireport.zoom" value="4.594972986357224"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select si.name as categoryname, sum(si.total) as total
+from saleitem si where si.prid in (select po.prid from payout po) and si.total < 0 and if($P{startdate} != $P{enddate},  date(si.created) between date($P{startdate}) and date($P{enddate}), date(si.created) = $P{startdate}) group by categoryname;]]>
+	</queryString>
+	<field name="categoryname" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="total_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="18">
+			<staticText>
+				<reportElement x="0" y="0" width="204" height="15" uuid="957fec2b-0cc9-4e0c-822c-38f9da53e81f"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Payout Summary]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="204" height="1" uuid="ea0cc2b0-2252-4a1a-8ab7-feb880d9e1e1"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="15" uuid="9a703e16-a6fd-43e3-b849-30ab5ed00275"/>
+				<textFieldExpression><![CDATA[$F{categoryname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="66" height="15" uuid="2c8f2d92-2814-4484-9c46-45177cce15cf"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{total} * -1]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="18">
+			<textField>
+				<reportElement x="138" y="2" width="66" height="15" uuid="9e32c811-9a52-493a-a234-5f325f7f7d9f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{total_1} * -1]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="1" width="206" height="1" uuid="ea105f6a-ec0e-4c85-897e-160106b51894"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="15" uuid="9e99b26f-9629-4f75-9fe9-8b8a637eb9d5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payout Total]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

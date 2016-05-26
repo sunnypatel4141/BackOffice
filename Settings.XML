@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settingsFile>
+<general>
+	<companyName>Sandusky Food and Wine</companyName>
+	<address>303 Fremont Ave.</address>
+        <town>Fremont Ave</town>
+	<postCode>44870</postCode>
+	<tel>000</tel>
+	<vat>789</vat>
+	<e-mail>admin@example.co.uk</e-mail>
+	<web>www.example.co.uk</web>
+	<footNoteone>Thank You</footNoteone>
+	<footNote2>FOR SHOPPING</footNote2>
+	<footNote3>WITH US</footNote3>
+
+
+	<url>jdbc:mysql://localhost:3306/myepos</url>
+	<user>myadmin</user>
+	<password>mypassword</password>
+        
+         <!--Backup Database Settings-->192.168.1.123:3306
+        <backupurl>jdbc:mysql://192.168.1.85:3306/myepos</backupurl>
+	<backupuser>myadmin</backupuser>
+	<backuppassword>mypassword</backuppassword>
+        
+	<databaseName>myepos</databaseName>
+	<port>:3306/</port>
+	<mainSrvB1>152</mainSrvB1>
+	<mainSrvB2>148</mainSrvB2>
+	<mainSrvB3>785</mainSrvB3>
+	<mainSrvB4>856</mainSrvB4>
+	<mainSrvPort>8569</mainSrvPort>
+	<mainSrvAdd>jdbc:mysql://192.168.1.85:3306/develop</mainSrvAdd>
+	<tillNumber>1</tillNumber>
+
+
+	<printer>Star TSP(100) Cutter</printer>
+	<custDispCOM>true</custDispCOM>
+	<COMPort>COM7</COMPort>
+	<custDispUSB>false</custDispUSB>
+	<USBPort>1</USBPort>
+	<cashDrawer>CashDrawer</cashDrawer>
+	<weightScale>2</weightScale>
+	<printerCOM>0</printerCOM>
+	<lineDisp>Next Customer Please</lineDisp>
+        <lineDisp2>                  </lineDisp2>
+<currentVersion>1.22452</currentVersion>
+<updateURL>1.22452</updateURL>
+<jarFileName>BackOffice.jar</jarFileName>
+
+</general>
+
+</settingsFile>

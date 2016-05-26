@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CategoryPercentBreakdown" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe8f1dfd-ae6f-4afb-8759-6e4729f1c144">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="42"/>
+	<parameter name="startdate" class="java.lang.String"/>
+	<parameter name="enddate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select count(total) as categorycount, ifnull(mc.name, si.name) as categoryname, sum(total) as total, (total / (select sum(si1.total) from saleitem si1 where if($P{startdate} != $P{enddate},  date(si1.created) between date($P{startdate}) and date($P{enddate}), date(si1.created) = $P{startdate}))) * 100 as totalpercent from saleitem si left join product pr on si.prid=pr.id left join maincategory mc on pr.mcid=mc.id where if($P{startdate} != $P{enddate},  date(si.created) between date($P{startdate}) and date($P{enddate}), date(si.created) = $P{startdate}) group by categoryname]]>
+	</queryString>
+	<field name="categorycount" class="java.lang.Long"/>
+	<field name="categoryname" class="java.lang.String"/>
+	<field name="total" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalpercent" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="555" height="29" uuid="cfa9648b-56d3-4503-93c7-1e170fae5ed7"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales By Category Representation]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27">
+			<staticText>
+				<reportElement x="0" y="0" width="58" height="20" uuid="fa6bbd95-5749-4a51-99fa-9b05d0186e28"/>
+				<text><![CDATA[Count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="0" width="297" height="20" uuid="73b95a08-3c4e-4bbe-9a3d-9c16422af15f"/>
+				<text><![CDATA[Category Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="20" uuid="2b8b28b2-71df-40ac-8e5f-91b996931aba"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20" uuid="470dbea5-ebd6-41cd-9200-2d03f818c773"/>
+				<text><![CDATA[Total Percent]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="26">
+			<textField>
+				<reportElement x="58" y="0" width="297" height="20" uuid="aa6fe214-99b0-40e9-9d5f-dd949f0f091a"/>
+				<textFieldExpression><![CDATA[$F{categoryname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="100" height="20" uuid="11af615a-4852-4042-bd64-cb5b4bcdda82"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="9ed741f2-a588-441c-9015-b6a87a3c8725"/>
+				<textFieldExpression><![CDATA[$F{totalpercent}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="58" height="20" uuid="fe493e7f-14a1-4032-9ff7-02a0679a805e"/>
+				<textFieldExpression><![CDATA[$F{categorycount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="327" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="0" y="0" width="555" height="327" uuid="0c9e5711-17d7-49c5-a109-b041ff8f9d2b"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{categoryname}]]></keyExpression>
+					<valueExpression><![CDATA[$F{totalpercent}]]></valueExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
